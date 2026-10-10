@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Lazy Doggy 第二版：手机许愿、服务器开发、应用内更新、网页发布与回测图表的四个互动教学示例。">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Lazy Doggy 第二版 · 手机许愿，服务器动手">
+  <meta property="og:description" content="四个合成教学小故事：做 APP、应用内更新、搭网页、看回测图表。框架怎么接，由你自己决定。">
+  <meta property="og:url" content="https://hoary-stock.github.io/lazy-doggy/v2/">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <title>Lazy Doggy 第二版 · 手机许愿，服务器动手</title>
+  <link rel="stylesheet" href="../assets/showcase.css">
+  <link rel="stylesheet" href="assets/v2.css">
+  <script src="assets/scenarios.js" defer></script>
+  <script src="assets/v2.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#overview">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="#overview"><span class="brand-mark" aria-hidden="true">⌁</span> Lazy Doggy <small>第二版</small></a>
+  <nav aria-label="主要章节"><a href="#examples">看四个例子</a><a href="#build">自己搭</a><a href="#statement">作者的话</a></nav>
+  <a class="quiet" href="../index.html">返回第一版 ↗</a>
+</header>
+<main>
+<section class="page v2-hero" id="overview">
+  <div>
+    <p class="eyebrow">手机许愿 · 服务器动手</p>
+    <h1>想到一个小应用，<br><em>先在手机上说。</em></h1>
+    <p class="lead">想做个打卡 APP？给学习卡加个功能？搭自己的网页，或安排一段回测再看图表？把需求交给服务器上的 AI，你在手机上看进度、确认结果就好。</p>
+    <p class="intro-text">Lazy Doggy 是远程工作台，也是可以往上接东西的框架。下面用四个小故事，看看它能怎么扩展。</p>
+    <div class="hero-actions"><a class="primary" href="#examples">从手机许一个愿 <span aria-hidden="true">↓</span></a><a class="secondary" href="../index.html">先看第一版</a></div>
+    <div class="hero-shortcuts"><a href="docs/example-tasks.md">给 AI 的示例任务书</a><a href="docs/implementation-checklist.md">实施与验收</a><a href="../docs/costs.md">服务器与模型成本</a></div>
+    <p class="fine hero-boundary">以下均为页面内合成教学，不执行真实构建、发布、数据取数或回测。第二版独立放在这里；第一版保持原样。</p>
+  </div>
+  <aside class="wish-card" aria-label="四个教学愿望">
+    <span class="card-topline">今天的愿望单 <span>教学示意</span></span>
+    <div class="wish-item"><span>01</span><div><b>我想每天打个卡。</b><small>做一个简单的手机 APP。</small></div></div>
+    <div class="wish-item"><span>02</span><div><b>学习卡能不能加收藏？</b><small>做好新版，在 APP 里点更新。</small></div></div>
+    <div class="wish-item"><span>03</span><div><b>这些笔记想做成网页。</b><small>先看预览，满意后再发布。</small></div></div>
+    <div class="wish-item"><span>04</span><div><b>帮我跑个回测看看。</b><small>用受控数据，最后在手机看图。</small></div></div>
+    <p>手机发需求 → 服务器做事 → 你验收 → 拿到成品</p>
+  </aside>
+</section>
+
+<section class="page example-page" id="examples">
+  <p class="eyebrow">四个小例子 · 按步看，也可以播放</p>
+  <h2>从“我想要”，<br>走到“我能用了”。</h2>
+  <p class="intro">流程、版本、回执和结果全是合成教学数据。本页不连接服务器，不调用模型或数据 API，也不会真的编译、回测、发布或下载安装。</p>
+  <div class="scope-note"><b>先说清楚</b><p>现有框架具备远程控制、反馈和应用更新等模块；这里演示如何把它们串起来。端到端自动造 APP、自动修复和自动发布 worker 仍须自己实现、逐项验收，不能把动画当成已经跑通的证明。</p></div>
+  <p class="fine">APK 在隔离 Linux 工具链里编译，再交给经过核验的 Android 测试环境。下面用模拟器讲流程；实际要检查宿主机、虚拟化加速和资源条件，也可用合适的独立宿主机或真机，不保证在虚拟 Linux 里嵌套 Android 加速可行。<sup class="citation"><a href="#ref-android-acceleration" aria-label="参考 H：Android 模拟器硬件加速限制">[H]</a></sup></p>
+  <div class="scenario-tabs" role="group" aria-label="选择示例">
+    <button type="button" data-scenario="habit" aria-pressed="true"><span>01</span><b>做个打卡 APP</b><small>从想法到 APK</small></button>
+    <button type="button" data-scenario="update" aria-pressed="false"><span>02</span><b>给 APP 加功能</b><small>在应用里更新</small></button>
+    <button type="button" data-scenario="website" aria-pressed="false"><span>03</span><b>搭自己的网页</b><small>预览后再发布</small></button>
+    <button type="button" data-scenario="backtest" aria-pressed="false"><span>04</span><b>安排回测看图</b><small>手机看图表网页</small></button>
+  </div>
+  <div class="scenario-summary"><div><h3 id="scenario-title">一个只有三个按钮的打卡 APP</h3><p id="scenario-description">今天有没有喝水、散步、读书？只做这三件事，数据先存在手机里，不要一上来就做复杂账户。</p></div><span class="synthetic-label">教学模拟 · 无业务请求</span></div>
+  <div class="journey" aria-label="当前流程阶段">
+    <div data-node="phone" class="journey-node is-active"><span>01</span><b>手机</b><small>说需求 / 看结果</small></div><span class="journey-arrow" aria-hidden="true">→</span>
+    <div data-node="server" class="journey-node"><span>02</span><b>服务器</b><small>受控开发 / 构建 / 计算</small></div><span class="journey-arrow" aria-hidden="true">→</span>
+    <div data-node="test" class="journey-node"><span>03</span><b id="test-node-title">Android 模拟器</b><small>运行 / 测试 / 验收</small></div><span class="journey-arrow" aria-hidden="true">→</span>
+    <div data-node="release" class="journey-node"><span>04</span><b>发布与使用</b><small>确认授权后发布</small></div>
+  </div>
+  <div class="demo-board">
+    <div class="demo-phone-wrap">
+      <div class="demo-phone">
+        <div class="demo-phone-head">Lazy Doggy <span>模拟界面</span></div>
+        <p class="demo-message user-message" id="phone-wish">我想要一个简单的打卡 APP，喝水、散步、读书，点一下就记住。</p>
+        <p class="demo-message agent-message" id="phone-reply">先把需求说清楚，再交给服务器。</p>
+        <div class="phone-result" id="phone-result"><small>示例成果</small><b id="artifact-name">每日三件事 · 0.1.0</b><span id="artifact-status">还没有构建文件</span><button type="button" id="result-button" disabled>模拟下载 APK</button></div>
+        <p class="phone-foot">所有按钮只改变本页演示状态</p>
+      </div>
+      <p class="device-caption" id="device-caption">你不用守在电脑前。测试、签名和发布仍在服务器完成。</p>
+    </div>
+    <div class="server-work">
+      <div class="stage-head"><span id="step-counter">01 / 10</span><span id="step-badge">手机 · 提出需求</span></div>
+      <h3 id="step-title">先许一个小愿望</h3>
+      <p class="step-description" id="step-description">把最想要的功能说清楚，先做一个小版本。</p>
+      <div class="work-cards">
+        <article><span class="work-kicker">服务器 · 隔离 Linux 环境</span><b id="build-status">等待任务</b><p id="build-detail">代码修改和 APK 编译在这里进行。</p></article>
+        <article><span class="work-kicker" id="test-kicker">测试 · Android 模拟器</span><b id="test-status">尚未测试</b><p id="test-detail">安装构建产物，再验证实际运行。</p></article>
+        <article><span class="work-kicker">发布 · 有权限的人确认</span><b id="release-status">尚未发布</b><p id="release-detail">测试通过也不等于已经授权发布。</p></article>
+      </div>
+      <div class="step-guard"><b>这一步要注意</b><p id="step-guard">页面只是教学，没有真的向服务器提交任务。</p><span id="step-reference" class="step-reference"></span></div>
+      <div class="receipt-line"><div><small>示例回执</small><code id="receipt-id">demo-habit-01</code></div><button type="button" id="receipt-button" disabled>模拟断线后查原回执</button></div>
+    </div>
+  </div>
+  <div class="playback-controls" role="group" aria-label="流程播放与逐步控制">
+    <button type="button" id="play-button" class="primary">播放流程</button><button type="button" id="previous-button" class="secondary" disabled>上一步</button><button type="button" id="next-button" class="secondary">下一步</button><button type="button" id="restart-button" class="quiet">回到开始</button>
+    <span class="playback-note">每步 3.5 秒 · 默认不自动播放</span>
+  </div>
+  <div class="scrubber"><label for="step-range">拖动看进度</label><input id="step-range" type="range" min="0" max="9" value="0" step="1" aria-valuetext="第 1 步，共 10 步"><output id="range-label" for="step-range">1 / 10</output></div>
+  <div id="step-list" class="step-list" role="group" aria-label="选择流程步骤"></div>
+  <p id="interaction-status" class="interaction-status" role="status">可以切换例子、播放，或直接点某一步；不会触发任何真实任务。</p>
+  <noscript><p class="scope-note">互动需要浏览器开启 JavaScript；也可以直接阅读下方流程摘要和示例任务书。</p></noscript>
+  <div id="backtest-chart" class="backtest-panel" hidden>
+    <div class="chart-heading"><div><p class="eyebrow">回测图表 · 只演示这条链路</p><h3>跑完以后，手机看一个图表网页。</h3></div><span id="chart-status" class="synthetic-label">先完成数据与脚本检查</span></div>
+    <p class="fine">这条曲线只有 12 个预设合成数字，没有单位、标的、收益率或真实回测结论。切到第 7 步才展示；往回看，图表也会回到尚未生成的状态。</p>
+    <svg id="synthetic-chart" class="synthetic-chart" viewBox="0 0 720 280" role="img" aria-labelledby="chart-title chart-description">
+      <title id="chart-title">无单位合成教学曲线</title><desc id="chart-description">图表只展示页面预设的十二个数字，不是策略运算或实际回测结果。</desc>
+      <g class="chart-grid"><path d="M62 38H690M62 88H690M62 138H690M62 188H690M62 238H690"></path><path d="M62 38V238M219 38V238M376 38V238M533 38V238M690 38V238"></path></g>
+      <g class="chart-axis-text"><text x="62" y="23">合成值（无单位）</text><text x="62" y="262">1</text><text x="376" y="262" text-anchor="middle">示意时点</text><text x="690" y="262" text-anchor="end">12</text></g>
+      <text id="chart-empty" class="chart-empty" x="376" y="143" text-anchor="middle">尚未生成 · 第 7 步出现合成曲线</text>
+      <polyline id="backtest-chart-line" class="chart-line" points="" hidden></polyline>
+      <g id="backtest-chart-points" class="chart-points" hidden></g>
+    </svg>
+    <div class="gif-preview"><div><b>也可以看这条链路的小动图</b><p>合成教学动图，曲线不是实际回测结果。动图和上方图表是两套独立的合成示意；它单独展示完整链路，不跟随上方步骤。默认显示静态图，点播放才切到动图；停止会回到静态图，不是暂停在原帧。</p><button id="gif-toggle" class="secondary" type="button" aria-pressed="false">播放动图</button><a href="assets/backtest-flow.gif" target="_blank" rel="noreferrer">查看完整动图 ↗</a><a href="docs/example-tasks.md">第四例任务书 ↗</a></div><figure><img id="backtest-flow-image" src="assets/backtest-flow.svg" width="840" height="1050" loading="lazy" alt="合成教学流程：手机提交泛化策略，服务器接收、检查数据、隔离回测并经授权发布图表，手机查看；不展示真实回测结果。"><figcaption>合成教学动图 · 仅说明流程，不运行策略</figcaption></figure></div>
+  </div>
+  <div class="example-summaries">
+    <article><span>01 / 新 APP</span><h3>说清楚 → 做小版 → 测试 → 发布</h3><p>手机提出需求，服务器确认范围，在隔离 Linux 环境修改代码、编译 APK，再安装到 Android 模拟器测试。你看过结果并授权发布，客户端才提供下载入口。</p></article>
+    <article><span>02 / 应用内更新</span><h3>点“更新”，不用自己找安装包</h3><p>学习卡从示例 0.1.0 升到 0.1.1。APP 内检查新版本、下载 APK、校验文件，随后交给 Android 系统安装。通常仍须允许该来源安装并由你确认，不能把它写成普通 APP 的静默安装。<sup class="citation"><a href="#ref-android-update" aria-label="参考 U：Android 安装与应用签名">[U]</a></sup></p></article>
+    <article><span>03 / 自己的网页</span><h3>先看预览，满意后再上线</h3><p>手机给出栏目和风格，服务器创建独立分支与预览，检查手机布局、链接和资源。经你授权后部署，验证正式地址，再从手机打开；有问题能退回上一版。</p></article>
+    <article><span>04 / 回测和图表</span><h3>手机提思路，服务器跑，结果看网页</h3><p>比如说一个泛化的均线交叉思路，再提供受控数据接口的配置引用。服务器取数、检查和隔离运行，费用、滑点、时间切分与未来数据都列入验收。你验收并授权后发布脱敏图表，手机直接看。这里没有真实策略、API 调用或收益结论。</p></article>
+  </div>
+</section>
+
+<section class="page" id="build">
+  <p class="eyebrow">它只是框架 · 你决定往上接什么</p>
+  <h2>先搭一条小链路，<br>以后再慢慢加。</h2>
+  <p class="intro">先把“手机发一句话 → 服务器接收 → 看到可靠回执”搭好。再接 Agent、构建任务、测试和发布，别一次把全部权限交出去。</p>
+  <div class="build-layout">
+    <ol class="build-steps">
+      <li><a href="../docs/quickstart.md"><b>01 / 从 Tmux 开始</b><span>新搭建优先 Tmux，再加 Windows。Android Remote 是可选的早期路线，第一版里解释了为什么两款手机应用会并用。</span></a></li>
+      <li><a href="docs/example-tasks.md"><b>02 / 选一个小愿望</b><span>打卡 APP、学习卡更新、个人网页、回测图表：每个例子都有任务书、产物和验收要求。</span></a></li>
+      <li><a href="docs/implementation-checklist.md"><b>03 / 把编译和测试分清楚</b><span>Linux 构建环境编译 APK；Android 模拟器负责安装和运行测试，不是在 Android 里编译。</span></a><p class="build-citations"><sup class="citation"><a href="#ref-android-build" aria-label="参考 B：Android 命令行构建">[B]</a></sup><sup class="citation"><a href="#ref-android-test" aria-label="参考 T：Android 模拟器测试">[T]</a></sup></p></li>
+      <li><a href="../docs/updates-feedback.md"><b>04 / 验收后授权发布</b><span>版本、APK 签名、大小与摘要一致，旧数据迁移与保留通过实测；发布失败不能假装成功，更新失败保留当前可用版本。</span></a></li>
+    </ol>
+    <aside class="prompt-panel"><p class="eyebrow">可以这样交给自己的 AI</p><pre>我想先做一个本地打卡 APP：
+喝水、散步、读书，三个按钮就够。
+
+先复述需求和权限范围，再建立独立分支。
+在隔离 Linux 环境构建 APK，
+在 Android 模拟器安装、测试并给出证据。
+
+不要碰其他项目、真实账户和运行数据。
+测试通过后，把结果交给我验收；
+只有我授权发布，才开放下载。
+加入应用内检查更新、下载和校验，
+安装交给 Android 系统确认。
+
+这是蓝图扩展任务，不代表已有完整 worker。</pre><div class="prompt-actions"><a class="secondary" href="docs/example-tasks.md">完整任务书 ↗</a></div><p class="fine">别把登录凭据写进需求、源码、构建日志或截图。</p></aside>
+  </div>
+  <div class="extension-grid">
+    <article><h3>模型不用只选 GPT</h3><p>DeepSeek、千问或本地模型，也能按实际能力接到脚本与工具上。工具调用、上下文、运行权限和费用仍要各自验证，不能假定换个 Key 就全兼容。</p></article>
+    <article><h3>经验可以慢慢攒起来</h3><p>平时学到的小技巧、以前小项目里的做法，可以整理成自己的文档和脚本。以后让 Agent 在授权范围里参考，省得每次从头折腾；不同项目仍要有各自权限。</p></article>
+    <article><h3>你还可以接别的东西</h3><p>本地 AI 整理邮件、私有网盘、实时推送，都可以作为后续方向。这里只列想法，没有把这些说成已经实现的功能。</p></article>
+  </div>
+  <div class="risk-note central-risk"><b>数据放得集中，备份也得认真做。</b><p>服务器存储一旦故障，可能同时丢掉多个项目。容器隔离、手机缓存和跨项目调用都不是完整备份。准备独立位置、加密、带版本的备份，并实际演练恢复。<a href="../docs/backup-recovery.md">看第一版的备份与恢复说明 ↗</a></p></div>
+  <div class="document-grid"><a href="README.md"><b>第二版怎么读</b><span>文件范围、合成演示与许可</span></a><a href="docs/example-tasks.md"><b>四个示例任务书</b><span>把想法拆成可检查的步骤</span></a><a href="docs/implementation-checklist.md"><b>实施与验收</b><span>构建、更新、网页、回测与权限</span></a><a href="../docs/contracts.md"><b>回执和接口</b><span>接收不等于执行，丢确认不重放</span></a><a href="../docs/licensing.md"><b>非商用许可</b><span>第三方权利与旧 MIT 授权保留</span></a><a href="../index.html"><b>第一版报告</b><span>原界面、架构、成本与搭建文档</span></a></div>
+</section>
+
+<section class="page statement-page" id="statement">
+  <p class="eyebrow">最后说几句 · 作者的话</p>
+  <h2>我不是程序员，<br>这套东西是 AI 帮我做的。</h2>
+  <div class="author-note"><p>我是一路提需求、试着用，再让 AI 帮我修改，慢慢搭成现在这样。把它放出来，是想给大家一个思路：很多以前必须坐在电脑前做的事，也可以从手机上安排。</p><p>但这只是个框架，不是拿来就能放心上线的成品。你准备接什么、给它多大权限，得按自己的用途决定。安全这块，请让自己的 AI 补齐登录和权限、令牌撤销、必要的人机验证、防火墙、备份恢复这些东西；最好再找懂这方面的程序员看看，提出建议后让 AI 落实。</p><p>人机验证代替不了登录和权限控制，装个防火墙也不能保证就安全。让 AI 能做事的同时，也得让它只碰你允许它碰的东西。<sup class="citation"><a href="#ref-security" aria-label="参考 S：访问控制与安全设计">[S]</a></sup></p></div>
+  <div class="license-note scope-note"><b>公开，不等于无限制使用</b><p>代码采用 PolyForm Noncommercial 1.0.0，原创文档与可许可演示内容采用 CC BY-NC 4.0；在法律允许范围内按现状提供、限制作者责任。第三方软件与模型遵守各自许可，旧 MIT 版本已经授予的权利保留。具体以<a href="../docs/licensing.md">许可说明</a>和完整标准原文为准。</p></div>
+</section>
+
+<section class="page references-page" id="sources">
+  <p class="eyebrow">官方资料 · 演示值由本页设定</p>
+  <h2>想继续搭，<br>从这些说明往下看。</h2>
+  <p class="intro">资料支持构建、测试、安装和权限边界，不证明本页的教学流水线已经端到端实现。示例版本号和流程状态不来自真实发布。</p>
+  <div class="references">
+    <article class="reference-entry" id="ref-android-build"><b>B / APK 编译在构建环境完成</b><a href="https://developer.android.com/build/building-cmdline" rel="noreferrer">Android Developers · 命令行构建应用</a><p>说明构建 APK 的命令行工具链；Linux 的构建环境与 Android 测试设备分别承担不同工作。</p></article>
+    <article class="reference-entry" id="ref-android-test"><b>T / 模拟器负责运行与测试</b><a href="https://developer.android.com/studio/run/emulator-commandline" rel="noreferrer">Android Developers · 从命令行启动模拟器</a><p>支持模拟器作为安装、运行和测试应用的环境，不把它称为 APK 编译环境。</p></article>
+    <article class="reference-entry" id="ref-android-acceleration"><b>H / 先核验宿主机与加速条件</b><a href="https://developer.android.com/studio/run/emulator-acceleration" rel="noreferrer">Android Developers · 模拟器硬件加速</a><p>说明加速与宿主机条件、在其他虚拟机内运行的限制；不承诺虚拟 Linux 中嵌套加速普遍可用。</p></article>
+    <article class="reference-entry" id="ref-android-update"><b>U / 应用内更新仍有安装边界</b><a href="https://developer.android.com/reference/android/content/pm/PackageInstaller.html" rel="noreferrer">Android Developers · PackageInstaller</a><p>安装可能需要用户操作；普通 APP 不应宣称任意静默安装。真实更新还须核对应用身份、签名关系与版本。</p><a href="https://developer.android.com/google/play/app-updates" rel="noreferrer">Android Developers · 应用更新要求</a></article>
+    <article class="reference-entry" id="ref-security"><b>S / 登录、人机验证与权限各有作用</b><a href="https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html" rel="noreferrer">OWASP · Authentication Cheat Sheet</a><p>人机验证是一层辅助，不能替代登录；还要落实最小权限、默认拒绝与逐请求授权。</p><a href="https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html" rel="noreferrer">OWASP · Authorization Cheat Sheet</a></article>
+  </div>
+  <p class="fine">第二版首次整理于 2026-10-10。第一版保留在原路径，四例均为本地静态教学演示。</p>
+</section>
+</main>
+<footer><span>Lazy Doggy · 第二版 · 躺在床上，也能安排 AI 干活。</span><a href="../index.html">第一版</a><a href="README.md">第二版说明</a><a href="../docs/licensing.md">许可</a><a href="https://github.com/Hoary-Stock/lazy-doggy" rel="noreferrer">公开仓库</a></footer>
+</body>
+</html>

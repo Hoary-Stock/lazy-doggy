@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="840" height="1050" viewBox="0 0 840 1050" role="img" aria-labelledby="title desc">
+<title id="title">Lazy Doggy 回测合成教学流程</title>
+<desc id="desc">六阶段流程与无单位固定合成曲线。不调用 API，不执行回测或部署，不表示真实收益。</desc>
+<rect width="840" height="1050" fill="#f3f0e8"/>
+<text x="50" y="83" font-size="42" fill="#18232b" font-family="sans-serif">Lazy Doggy · 回测小故事</text>
+<text x="50" y="133" font-size="22" fill="#586974" font-family="sans-serif">手机提需求 → 服务器做事 → 授权发布 → 手机看图</text>
+<rect x="50" y="151" width="740" height="31" rx="7" fill="#e3ebe5"/>
+<text x="65" y="174" font-size="19" fill="#285e55" font-family="sans-serif">合成教学图 · 不调用 API，不执行回测或部署</text>
+<rect x="50" y="195" width="362" height="134" rx="12" fill="#fffefa" stroke="#cdd3cf"/>
+<text x="69" y="236" font-size="28" fill="#18232b" font-family="sans-serif">01  手机说策略</text>
+<text x="69" y="277" font-size="22" fill="#18232b" font-family="sans-serif">简单均线交叉思路</text>
+<text x="69" y="310" font-size="20" fill="#586974" font-family="sans-serif">引用数据接口，不填密钥</text>
+<rect x="428" y="195" width="362" height="134" rx="12" fill="#fffefa" stroke="#cdd3cf"/>
+<text x="447" y="236" font-size="28" fill="#18232b" font-family="sans-serif">02  数据与权限</text>
+<text x="447" y="277" font-size="22" fill="#18232b" font-family="sans-serif">限定项目与取数范围</text>
+<text x="447" y="310" font-size="20" fill="#586974" font-family="sans-serif">检查日期、缺失和授权</text>
+<rect x="50" y="348" width="362" height="134" rx="12" fill="#fffefa" stroke="#cdd3cf"/>
+<text x="69" y="389" font-size="28" fill="#18232b" font-family="sans-serif">03  服务器回测</text>
+<text x="69" y="430" font-size="22" fill="#18232b" font-family="sans-serif">隔离脚本执行</text>
+<text x="69" y="463" font-size="20" fill="#586974" font-family="sans-serif">费用、滑点和时间切分</text>
+<rect x="428" y="348" width="362" height="134" rx="12" fill="#fffefa" stroke="#cdd3cf"/>
+<text x="447" y="389" font-size="28" fill="#18232b" font-family="sans-serif">04  校验与验收</text>
+<text x="447" y="430" font-size="22" fill="#18232b" font-family="sans-serif">看结果和可核对证据</text>
+<text x="447" y="463" font-size="20" fill="#586974" font-family="sans-serif">示例曲线不是实际结果</text>
+<rect x="50" y="501" width="362" height="134" rx="12" fill="#fffefa" stroke="#cdd3cf"/>
+<text x="69" y="542" font-size="28" fill="#18232b" font-family="sans-serif">05  授权后发布</text>
+<text x="69" y="583" font-size="22" fill="#18232b" font-family="sans-serif">确认公开材料与候选</text>
+<text x="69" y="616" font-size="20" fill="#586974" font-family="sans-serif">再发布图表网页</text>
+<rect x="428" y="501" width="362" height="134" rx="12" fill="#fffefa" stroke="#cdd3cf"/>
+<text x="447" y="542" font-size="28" fill="#18232b" font-family="sans-serif">06  手机打开网页</text>
+<text x="447" y="583" font-size="22" fill="#18232b" font-family="sans-serif">看到状态和曲线</text>
+<text x="447" y="616" font-size="20" fill="#586974" font-family="sans-serif">原回执继续查，不重投</text>
+<text x="50" y="705" font-size="27" fill="#18232b" font-family="sans-serif">图表窗口 · 固定合成轨迹（无单位）</text>
+<rect x="50" y="718" width="740" height="238" rx="12" fill="#fffefa" stroke="#cdd3cf"/>
+<path d="M90 767H750" stroke="#e5e9e5"/>
+<path d="M90 817H750" stroke="#e5e9e5"/>
+<path d="M90 867H750" stroke="#e5e9e5"/>
+<path d="M90 917H750" stroke="#e5e9e5"/>
+<path d="M90 745V918H750" stroke="#acb9b3" stroke-width="2" fill="none"/>
+<polyline points="90.00,879.20 150.00,870.00 210.00,874.60 270.00,861.95 330.00,866.55 390.00,852.75 450.00,859.65 510.00,863.10 570.00,847.00 630.00,855.05 690.00,841.25 750.00,849.30" stroke="#285e55" stroke-width="5" fill="none"/>
+<text x="99" y="946" font-size="18" fill="#586974" font-family="sans-serif">顺序轴 · 不代表真实日期或资产</text>
+<text x="50" y="1011" font-size="24" fill="#df6a13" font-family="sans-serif">曲线不是回测结果，不表示收益或策略有效。</text>
+<text x="50" y="1040" font-size="19" fill="#586974" font-family="sans-serif">本图只讲流程；真正实现须测试、验收并授权。</text>
+</svg>
