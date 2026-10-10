@@ -1,0 +1,54 @@
+<!-- SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0 -->
+<!-- Required Notice: Copyright (c) 2026 Lazy Doggy contributors (https://hoary-stock.github.io/lazy-doggy/). -->
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lazy Doggy · 本机白板</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+<main>
+  <p class="eyebrow">LAZY DOGGY / LOCAL MOCK</p>
+  <h1>先画白板，再接 Agent。</h1>
+  <p class="warning"><strong>原创教学示例，不能直接部署。</strong>不是原程序的脱敏发布版，也没有经过真实 Agent 验收。请让自己的 AI 检查、修理并补齐门禁。</p>
+  <p id="connection" role="status">静态白板预览；所有数值和事件都是合成数据。</p>
+  <section aria-labelledby="selection-title">
+    <h2 id="selection-title">1 / 选模拟参数</h2>
+    <div id="providers" class="providers" aria-label="模拟代理"></div>
+    <div class="settings">
+      <label>思考强度 <select id="effort"><option>none</option><option selected>low</option><option>medium</option><option>xhigh</option></select></label>
+      <label>上下文上限 <select id="context"><option value="32768">32 Ki</option><option value="65536" selected>64 Ki</option><option value="131072">128 Ki</option><option value="262144">256 Ki</option></select></label>
+    </div>
+    <p>四个标签共用假模型；参数只作回显，不代表对应产品真实支持。</p>
+  </section>
+  <section aria-labelledby="send-title">
+    <h2 id="send-title">2 / 看一次操作与原回执</h2>
+    <p class="sample">演示消息：检查一段合成文本。</p>
+    <div class="actions">
+      <button id="send" disabled>发送固定演示</button>
+      <button id="lose" disabled>模拟确认丢失</button>
+      <button id="recover" disabled>只查原 UUID</button>
+    </div>
+    <p id="status" role="status">不输入真实任务，不上传文件。</p>
+    <pre id="receipt" aria-label="模拟回执">尚无模拟回执</pre>
+  </section>
+  <section aria-labelledby="stats-title">
+    <h2 id="stats-title">3 / 分开看占用与累计</h2>
+    <div class="metrics">
+      <article><h3>模拟上下文占用</h3><p id="occupancy">未观测</p></article>
+      <article><h3>合成累计 Tokens</h3><p id="tokens">0 · 没有真实计量</p></article>
+    </div>
+    <pre id="events" aria-label="合成事件">事件尚未读取</pre>
+  </section>
+  <section>
+    <h2>有意缺少的能力</h2>
+    <p>没有登录、持久 outbox、WebSocket、真实 CLI、模型、附件、缓存删除、反馈上传、安装或更新。Kimi 只留扩展设计。页面刷新会失去原 UUID；服务重启会失去全部回执。</p>
+    <p>正式系统的契约与本示例不同。本示例使用 <code>/demo/</code>，不能当作可兼容的 <code>/v1/</code> 实现。</p>
+  </section>
+  <footer>Lazy Doggy contributors · 代码 PolyForm-Noncommercial-1.0.0 · 文档 CC-BY-NC-4.0</footer>
+</main>
+</body>
+</html>

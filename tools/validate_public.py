@@ -47,7 +47,7 @@ def local_link(source, value, ids=None):
 
 
 def main():
-    for required in ['index.html', 'README.md', 'AI_BUILD_PROMPT.md', 'docs/screenshots.md', 'assets/screenshots/manifest.json', 'assets/gallery-data.js', 'lazy-doggy-offline.html', 'lazy-doggy-blueprint.zip']:
+    for required in ['index.html', 'README.md', 'AI_BUILD_PROMPT.md', 'LICENSE', 'licenses/PolyForm-Noncommercial-1.0.0.txt', 'licenses/CC-BY-NC-4.0.txt', 'docs/licensing.md', 'docs/backup-recovery.md', 'docs/whiteboard-example.md', 'docs/network-path.md', 'docs/repository-map.md', 'docs/demo-scenarios.md', 'demos/index.html', 'examples/whiteboard/server.py', 'assets/demo/lazy-doggy-demo.mp4', 'assets/demo/lazy-doggy-demo.zh.vtt', 'docs/screenshots.md', 'assets/screenshots/manifest.json', 'assets/gallery-data.js', 'lazy-doggy-offline.html', 'lazy-doggy-blueprint.zip']:
         if not (ROOT / required).is_file():
             errors.append('missing required public file: ' + required)
     files = [p for p in ROOT.rglob('*') if p.is_file() and '.git' not in p.relative_to(ROOT).parts

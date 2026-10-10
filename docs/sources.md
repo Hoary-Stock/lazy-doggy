@@ -18,3 +18,14 @@
 本仓库原生截图来自测试设备或虚拟机中的真实界面，使用合成演示数据。截图与能力覆盖见 [截图说明](screenshots.md)。原实例的私有原始记录未发布；不要求读者访问私有站点来完成复建。
 
 原实例已验证的路径、蓝图要求、新适配器扩展示例、流程示意和教学预算分别标记。页面中的交互不会触发真实模型调用、反馈提交或客户端更新；不得把交互示意当作实际服务端执行证据。
+
+## 许可与数据保护资料
+
+| 标记 | 官方资料 | 支持的内容 |
+|---|---|---|
+| L1 | [PolyForm Noncommercial 1.0.0](https://polyformproject.org/licenses/noncommercial/1.0.0) | 软件的非商用用途、通知与法律允许范围内的责任限制 |
+| L2 | [CC BY-NC 4.0 正文](https://creativecommons.org/licenses/by-nc/4.0/legalcode.en) · [CC FAQ](https://creativecommons.org/faq/) | 原创内容的非商用、署名与第 5 节责任限制；软件另选软件许可 |
+| S1 | [CISA 指南](https://www.cisa.gov/stopransomware/ransomware-guide) | 离线加密备份与恢复验证；抓取网页版受限时核对官网索引摘要，不将该来源当作本项目已做恢复验收的证据 |
+| S2 | [SQLite Backup API](https://www.sqlite.org/backup.html) | 正在运行数据库的一致性备份机制 |
+
+网络软件的官方文档、源码和许可见[网络链路](network-path.md)；AI 模型许可差异、OSI 定义与旧 MIT 版本见[许可说明](licensing.md)。

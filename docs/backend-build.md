@@ -36,7 +36,7 @@ project/
 | F | 第一个真实适配器，再逐一增加 | 初始化、首回合、恢复、取消、审批、用量逐项可证 |
 | G | 类型化附件、上传回执、lease、缓存 | 丢ack只读恢复；未知引用或变更副本无法回收 |
 | H | 统计、窗口管理、反馈与两类更新 | 每个写操作都有独立授权/确认和持久回执 |
-| I | 三个客户端与打包 | 原生环境门禁通过；正式/fixture字节对应可复核 |
+| I | 已选择的客户端与打包 | 原生环境门禁通过；正式/fixture字节对应可复核 |
 
 SQLite操作使用事务和唯一约束；文件持久化使用同目录临时文件、fsync、原子替换及目录fsync。别在async循环里同步全量扫描或哈希大文件，放到有界线程任务。多worker不能各自领取同一队列；最小版可用一个writer进程，失败时健康报告degraded并拒绝写入，不靠反复崩溃争锁。
 
@@ -68,7 +68,7 @@ broker运行在对应Agent身份下，外层应用不能读取其home。跨身�
 
 ## 6. Android客户端
 
-共享API、typed events、持久outbox、游标和能力组件，两个App保留不同导航：终端App围绕已有窗口，会话App围绕对话runner。Agent选择使用2×2、自适应换行或横向滚动；第五个provider也应可见。等待、blocked、unknown、可重试、仅本地保存、服务器排队用不同标签。
+先实现 Tmux 终端入口；Android Remote 是可选项。选择 Remote 时共享API、typed events、持久outbox、游标和能力组件，并保留不同导航：终端App围绕已有窗口，会话App围绕对话runner。Agent选择使用2×2、自适应换行或横向滚动；第五个provider也应可见。等待、blocked、unknown、可重试、仅本地保存、服务器排队用不同标签。
 
 附件通过系统选择器取得，普通文件复制到应用私有暂存，先算SHA并保存UUID再上传。原图片/文档不删除。成功回执后，只释放确认为插件创建且无本地引用的冗余副本。预算检查要考虑Android同一应用缓存的系统别名，不能放松未知目录或符号链接边界。Android的系统文件选择通过Storage Access Framework授权访问文档，不能假定所有返回值都是任意可读主机路径。[Android文件访问文档](https://developer.android.com/training/data-storage/shared/documents-files)
 

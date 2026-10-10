@@ -1,21 +1,44 @@
-MIT License
-
+Lazy Doggy — Noncommercial public blueprint
 Copyright (c) 2026 Lazy Doggy contributors
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+Required Notice: Copyright (c) 2026 Lazy Doggy contributors (https://github.com/Hoary-Stock/lazy-doggy)
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+This notice applies from the first revision containing it. It does not revoke
+rights already granted for earlier MIT-licensed copies or their existing content.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+1. Software code, styles, build/validation tools, configuration examples, and
+   executable code embedded in HTML are offered under the unmodified PolyForm
+   Noncommercial License 1.0.0. Full text:
+   licenses/PolyForm-Noncommercial-1.0.0.txt
+   https://polyformproject.org/licenses/noncommercial/1.0.0
+
+2. Original documentation, report prose, diagrams, and the project's licensable
+   contributions to demonstration images and videos are offered under Creative
+   Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0). Full text:
+   licenses/CC-BY-NC-4.0.txt
+   https://creativecommons.org/licenses/by-nc/4.0/
+
+These licenses apply to the respective material types, not as an either/or
+choice for the same material. Mixed HTML, media, and archives retain the
+respective licenses for their code and presentation content.
+
+Commercial use outside the permissions expressly granted by the applicable
+license requires separate permission from the relevant rights holders. Public
+availability, AI-assisted reuse, and this notice do not grant that permission.
+
+Third-party software, model weights, model outputs, trademarks, product marks,
+and third-party rights depicted in screenshots are not relicensed here.
+The original private clients and installers are not included or licensed here.
+
+Both standard licenses contain warranty and liability limitations subject to
+applicable law. Materials are provided as-is; no promise of fitness, security,
+support, uninterrupted service, or data recovery is made. No use or commercial
+deployment implies sponsorship or endorsement by the authors. This notice does
+not override non-waivable statutory rights or obligations.
+
+Chinese scope, attribution, historical-version, and responsibility explanation:
+docs/licensing.md
+
+中文摘要：本次起采用非商用许可；代码与文档分别适用上述两份标准条款。
+未经另行许可不得进行许可范围以外的商用。仅在法律允许范围内按现状提供
+并限制作者责任。此前 MIT 版本已授予的权利保留；第三方权利不由本项目授权。

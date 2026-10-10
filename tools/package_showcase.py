@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build a self-contained HTML appendix and a documentation-only archive."""
+"""Build a standalone report and an archive of public teaching material."""
 import base64
 import hashlib
 from pathlib import Path
@@ -37,11 +37,18 @@ def main():
     html = re.sub(r'href="((?:docs/)[^"]+\.md|AI_BUILD_PROMPT\.md)"', lambda m: 'href="https://github.com/Hoary-Stock/lazy-doggy/blob/main/' + m.group(1) + '"', html)
     html = html.replace('href="lazy-doggy-blueprint.zip"', 'href="https://github.com/Hoary-Stock/lazy-doggy/archive/refs/heads/main.zip"')
     html = html.replace('href="lazy-doggy-offline.html" download', 'href="https://hoary-stock.github.io/lazy-doggy/lazy-doggy-offline.html" download')
+    # Keep the single-file appendix small and useful offline. The larger video
+    # and interactive demo are separate, explicitly online resources.
+    html = re.sub(r'<video id="flow-video".*?</video>', '<div class="note"><b>单文件阅读版</b><span>本页文字、图片与教学交互可以离线阅读。视频单独提供：<a href="https://hoary-stock.github.io/lazy-doggy/assets/demo/lazy-doggy-demo.mp4">联网打开教学视频</a>；<a href="https://hoary-stock.github.io/lazy-doggy/demos/index.html">联网打开可暂停流程演示</a>。完整 ZIP 包含视频和示例。</span></div>', html, flags=re.S)
+    html = re.sub(r'href="(demos/index\.html|examples/whiteboard/index\.html|assets/demo/[^\"]+\.(?:mp4|vtt))"', lambda m: 'href="https://hoary-stock.github.io/lazy-doggy/' + m.group(1) + '"', html)
     HTML.write_text(html)
     paths = [p for p in ROOT.rglob('*') if p.is_file() and not p.is_symlink()
              and '.git' not in p.relative_to(ROOT).parts
              and '__pycache__' not in p.relative_to(ROOT).parts and p != ARCHIVE
-             and p.suffix in {'.md', '.html', '.css', '.js', '.json', '.png', '.py'}]
+             and (p.suffix in {'.md', '.html', '.css', '.js', '.json', '.png', '.py'}
+                  or (p.suffix == '.txt' and p.parent == ROOT / 'licenses')
+                  or (p.suffix == '.svg' and p.parent == ROOT / 'assets/demo')
+                  or (p.suffix in {'.mp4', '.vtt'} and p.parent == ROOT / 'assets/demo'))]
     paths += [ROOT / 'LICENSE', ROOT / '.gitignore', ROOT / '.nojekyll']
     assert all(p.exists() for p in paths)
     assert not any(p.suffix in {'.apk', '.exe', '.db', '.log'} for p in paths)
@@ -53,7 +60,7 @@ def main():
             info.compress_type = zipfile.ZIP_DEFLATED
             info.external_attr = 0o100644 << 16
             out.writestr(info, path.read_bytes())
-    print('Built lazy-doggy-offline.html and lazy-doggy-blueprint.zip; documentation and presentation assets only.')
+    print('Built standalone report and public teaching archive; licenses, mock example and demo video included, no original installers.')
 
 
 if __name__ == '__main__':

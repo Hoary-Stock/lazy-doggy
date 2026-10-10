@@ -1,0 +1,26 @@
+/* SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0 */
+/* Required Notice: Copyright (c) 2026 Lazy Doggy contributors (https://hoary-stock.github.io/lazy-doggy/). */
+:root { color-scheme: light; font-family: system-ui, sans-serif; color: #202724; background: #f4f2ea; }
+* { box-sizing: border-box; }
+body { margin: 0; }
+main { width: min(850px, 100%); margin: auto; padding: 28px 18px 44px; }
+h1 { font-size: clamp(28px, 6vw, 44px); margin: 12px 0; }
+h2 { font-size: 19px; margin-top: 0; }
+h3 { font-size: 15px; }
+p { line-height: 1.7; }
+.eyebrow { letter-spacing: .16em; font-size: 12px; color: #486454; }
+.warning { padding: 15px; border: 2px solid #b76625; border-radius: 12px; background: #fff2db; }
+section { padding: 20px; margin-top: 18px; border: 1px solid #cbd3c8; border-radius: 16px; background: #fffefa; }
+.providers, .settings, .actions, .metrics { display: flex; flex-wrap: wrap; gap: 10px; }
+.providers button { flex: 1 1 140px; }
+button, select { padding: 12px; border: 1px solid #7d9483; border-radius: 9px; font: inherit; background: white; color: inherit; }
+button:not(:disabled) { cursor: pointer; }
+button[aria-pressed="true"] { color: white; background: #315e47; }
+button:disabled { opacity: .5; cursor: not-allowed; }
+button:focus-visible, select:focus-visible { outline: 3px solid #b76625; outline-offset: 2px; }
+.settings { margin-top: 16px; }
+label { display: grid; gap: 6px; flex: 1 1 200px; }
+.metrics article { flex: 1 1 220px; background: #edf3eb; padding: 10px 16px; border-radius: 10px; }
+.sample { padding: 12px; border-left: 4px solid #315e47; background: #edf3eb; }
+pre { white-space: pre-wrap; overflow-wrap: anywhere; max-height: 320px; overflow: auto; padding: 14px; background: #eef1eb; border-radius: 10px; font-size: 12px; }
+footer { margin-top: 24px; font-size: 12px; color: #4c6152; line-height: 1.7; }

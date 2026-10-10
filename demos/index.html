@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; media-src 'self'; connect-src 'none'; font-src 'self'; base-uri 'none'; form-action 'none'">
+  <meta name="description" content="Lazy Doggy 三章交互教学：手机与服务器的消息链路、三个 subagent 工作区合并、客户端自身修复和更新的授权流程。">
+  <title>Lazy Doggy · 三章流程演示</title>
+  <link rel="icon" href="../assets/demo/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/demo/demo.css">
+  <script defer src="../assets/demo/scenario-data.js"></script>
+  <script defer src="../assets/demo/demo.js"></script>
+</head>
+<body class="paused">
+  <div class="demo-mark" role="note"><strong>Lazy Doggy · 流程演示 · 合成数据 · 非生产录像</strong><span>只在浏览器内播放，不发送模型或业务请求，不执行命令或操作真实服务。</span></div>
+  <main class="player">
+    <header class="masthead"><div><p class="eyebrow">LAZY DOGGY / 从手机到服务器</p><h1>看看一句要求，怎样变成可审阅的结果。</h1></div><a class="back-link" href="../index.html">返回蓝图</a></header>
+    <nav class="chapters" aria-label="选择演示章节">
+      <button data-chapter="0" aria-pressed="true"><span>01</span>手机 → 服务器 → 电脑</button>
+      <button data-chapter="1" aria-pressed="false"><span>02</span>三个 subagent 分工与合并</button>
+      <button data-chapter="2" aria-pressed="false"><span>03</span>修复客户端 → 验收 → 升级</button>
+    </nav>
+    <section class="stage" aria-label="流程动画">
+      <div class="scene-heading"><span id="scene-number">01 / 07</span><h2 id="scene-title">手机输入要求</h2><span class="chapter-tag" id="chapter-label">消息链路</span></div>
+      <div class="board" id="flow-board">
+        <div class="flow-grid">
+          <article class="node" data-node="phone"><div class="node-top"><span class="number">1</span><h3>手机客户端</h3></div><div class="phone-display"><img src="../assets/screenshots/tmux-file-tray.png" alt="已审阅的 Tmux 0.1.65 原生演示界面缩略图"><p id="phone-message">请给本客户端的Agent 筛选标签加横向滚动，先给候选补丁。</p></div><small>界面缩略图：真实客户端 · 合成数据</small></article>
+          <article class="node" data-node="gateway"><div class="node-top"><span class="number">2</span><h3>鉴权与回执</h3></div><div class="icon-lock" aria-hidden="true">◇</div><p>校验身份、会话权限和输入边界。</p><div class="state-label" id="gateway-state">等待发送</div><small>原请求编号先保存；接收不等于执行。</small></article>
+          <article class="node" data-node="broker"><div class="node-top"><span class="number">3</span><h3>Tmux broker</h3></div><div class="terminal" aria-hidden="true"><span>›</span> 已有服务器窗口<br><span>›</span> 原生状态检查<br><span>›</span> 有界交付 / 排队</div><div class="state-label" id="broker-state">等待交付</div><small>不把终端最后一行当作全部状态。</small></article>
+          <article class="node" data-node="agent"><div class="node-top"><span class="number">4</span><h3>服务器 Agent ↔ 模型 API</h3></div><div class="model-options"><span>示例 effort：medium</span><span>示例 context：64K</span><span>工具权限：限定工作区</span></div><div class="state-label" id="agent-state">等待原生确认</div><small>模型推理与工具执行由服务器适配层组织。</small></article>
+        </div>
+        <div class="event-rail"><div class="stream" data-node="events"><b>事件与用量</b><div class="event-dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div><span id="event-state">按序记录，再向客户端推送</span></div><div class="resume" data-node="resume"><b>断线继续</b><span id="resume-state">读原请求与缺失事件，不重发未知写入</span></div><div class="desktop" data-node="windows"><b>Windows 接回同一窗口</b><span id="windows-state">服务端任务与手机连接分别保留</span></div></div>
+      </div>
+      <div class="board" id="worktree-board" hidden>
+        <div class="worktree-grid">
+          <article class="node worker" data-node="worker-a"><div class="node-top"><span class="number">A</span><h3>界面 subagent</h3></div><p class="branch">独立工作区 · feature/ui</p><h4>负责标签布局和按钮</h4><div class="patch"><span class="added">+ 横向标签滚动</span><span class="added">+ 保留筛选与窗口计数</span></div><div class="state-label worker-state">候选任务</div><small>只修改已分配的界面文件。</small></article>
+          <article class="node worker" data-node="worker-b"><div class="node-top"><span class="number">B</span><h3>契约 subagent</h3></div><p class="branch">独立工作区 · feature/receipts</p><h4>负责状态与回执边界</h4><div class="patch"><span class="added">+ 原请求只读恢复</span><span class="added">+ 未知状态保持保护</span></div><div class="state-label worker-state">候选任务</div><small>不改变其他工作区的运行数据。</small></article>
+          <article class="node worker" data-node="worker-c"><div class="node-top"><span class="number">C</span><h3>验收 subagent</h3></div><p class="branch">独立工作区 · feature/tests</p><h4>负责回归与操作说明</h4><div class="patch"><span class="added">+ 窄屏与字体放大用例</span><span class="added">+ 明确失败与恢复说明</span></div><div class="state-label worker-state">候选任务</div><small>测试候选补丁，不自行发布。</small></article>
+        </div>
+        <p class="workspace-boundary">Git worktree 和分支隔离修改；执行权限边界仍由容器／VM 与授权目录承担。</p>
+        <div class="integration"><div data-node="merge"><b>主协调者串行合并</b><span id="merge-state">A → B → C · 保留各分支提交</span></div><div data-node="tests"><b>合并后的共同测试</b><span id="test-state">检查契约、冲突与真实回归</span></div><div data-node="review"><b>可审阅结果</b><span id="review-state">补丁 + 测试证据 + 剩余限制</span></div></div>
+      </div>
+      <div class="board" id="fix-board" hidden>
+        <div class="fix-grid">
+          <article class="node" data-node="feedback"><div class="node-top"><span class="number">1</span><h3>本客户端反馈</h3></div><div class="feedback-display"><img src="../assets/screenshots/remote-feedback-preview.png" alt="真实 Remote 3.29.0 合成反馈草稿；截图时已取消提交"><div><b>复现问题</b><p>小屏幕标签难读，希望保留完整名称并支持滑动。</p><small>缩略图中的草稿已取消；本演示不提交报告。</small></div></div><span class="verified">反馈接收与私有保存：已验收</span></article>
+          <article class="node" data-node="permission"><div class="node-top"><span class="number">2</span><h3>授权与候选修复</h3></div><ul><li>确认是客户端自身 Bug / 功能</li><li>限定可改文件与验证范围</li><li>报告内容不授予执行权限</li></ul><div class="state-label" id="permission-state">需明确授权修复</div><span class="not-verified">一键全自动修复 worker：未验收</span></article>
+          <article class="node" data-node="build"><div class="node-top"><span class="number">3</span><h3>测试、构建与发布</h3></div><ol><li>候选分支回归</li><li>构建候选安装包</li><li>原生验收与数据保留</li><li>授权发布已验收版本</li></ol><div class="state-label" id="build-state">构建 / 发布分别需授权</div><small>报告已保存不表示修复已完成。</small></article>
+          <article class="node" data-node="update"><div class="node-top"><span class="number">4</span><h3>回到手机，确认新版</h3></div><div class="update-demo"><b>Android 客户端</b><span>已验收版本 → 正式 APK</span><span>摘要 / 大小 / 签名连续性</span><span class="install-step">交给系统 · 用户确认安装</span></div><p id="update-state">查看已验收版本 → 下载 → 系统确认</p><span class="verified">应用更新：已验收</span><small>电脑另有单独确认的更新入口；本片不安装软件。</small></article>
+        </div>
+      </div>
+      <div class="narration" aria-live="polite"><span class="narration-label">正在发生</span><p id="narration">客户端先保存原请求编号；这句要求只属于教学动画。</p></div>
+    </section>
+    <div class="transport" aria-label="播放控制"><button id="play-toggle" aria-label="播放演示">播放</button><button id="restart" aria-label="从头播放">从头</button><label class="timeline-label" for="timeline">进度</label><input id="timeline" type="range" min="0" max="80" step="0.1" value="0" aria-label="拖动演示进度"><output id="time-readout" for="timeline">00:00 / 01:20</output></div>
+    <p class="boundary"><strong>能力边界：</strong>反馈保存、应用更新已验收；一键全自动修复 worker 未验收。修复、构建、发布需授权。图中的任务、补丁和事件均为流程示意。</p>
+    <section class="movie" aria-labelledby="movie-title"><div><p class="eyebrow">可以带走的视频</p><h2 id="movie-title">80 秒三章导览</h2><p>录制的是上方教学 HTML；无旁白，中文说明直接显示在画面内。不是原生客户端或生产服务器操作录像。</p><a href="../assets/demo/lazy-doggy-demo.mp4" download>下载 MP4</a> · <a href="../docs/demo-scenarios.md">逐章脚本与实施边界</a></div><video controls preload="none" playsinline poster="../assets/demo/teaching-poster.png" aria-label="Lazy Doggy 合成流程教学视频"><source src="../assets/demo/lazy-doggy-demo.mp4" type="video/mp4"><track kind="captions" src="../assets/demo/lazy-doggy-demo.zh.vtt" srclang="zh" label="中文说明"><track kind="chapters" src="../assets/demo/chapters.vtt" srclang="zh" label="中文章节">浏览器不支持视频时，请下载 MP4。</video></section>
+  </main>
+</body>
+</html>
