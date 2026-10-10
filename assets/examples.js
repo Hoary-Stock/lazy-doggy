@@ -6,7 +6,7 @@
   const scenarios = window.LAZY_DOGGY_V2_SCENARIOS;
   const byId = id => document.getElementById(id);
   const scenarioButtons = [...document.querySelectorAll("[data-scenario]")];
-  const journeyNodes = [...document.querySelectorAll("[data-node]")];
+  const journeyNodes = [...document.querySelectorAll(".journey [data-node]")];
   const refs = {
     "ref-android-build": "B / Android 命令行构建",
     "ref-android-test": "T / Android 模拟器",
@@ -22,7 +22,7 @@
   const syntheticSeries = Object.freeze([51, 45, 48, 58, 46, 53, 43, 56, 50, 46, 54, 48]);
   const setText = (id, text) => { byId(id).textContent = text; };
   function stopGif() {
-    if (gifPlaying) byId("backtest-flow-image").setAttribute("src", "assets/backtest-flow.svg");
+    if (gifPlaying) byId("backtest-flow-image").setAttribute("src", "assets/demo/backtest-flow.svg");
     gifPlaying = false;
     setText("gif-toggle", "播放动图");
     byId("gif-toggle").setAttribute("aria-pressed", "false");
@@ -191,7 +191,7 @@
       stopGif();
       setText("interaction-status", "动图已停止并回到静态图，没有暂停到同一帧。它只演示完整流程，不触发真实回测。");
     } else {
-      byId("backtest-flow-image").setAttribute("src", "assets/backtest-flow.gif");
+      byId("backtest-flow-image").setAttribute("src", "assets/demo/backtest-flow.gif");
       gifPlaying = true;
       setText("gif-toggle", "停止动图");
       byId("gif-toggle").setAttribute("aria-pressed", "true");

@@ -1,4 +1,4 @@
-# Lazy Doggy · 公开复建蓝图（第二版）
+# Lazy Doggy · 公开复建蓝图
 
 **躺在床上，也能安排 AI 干活。**
 
@@ -6,9 +6,9 @@
 
 **[打开中文互动报告](https://hoary-stock.github.io/lazy-doggy/)** · [从这里开始搭建](docs/quickstart.md) · [交给你的 AI 的任务书](AI_BUILD_PROMPT.md) · [成本与边界](docs/costs.md) · [非商用许可](docs/licensing.md)
 
-## 第二版：四个互动小故事
+## 四个互动小故事
 
-原来的报告网址和 GitHub 地址继续使用，默认介绍已更新为第二版。
+场景、成品界面、四个互动例子、架构、成本与搭建说明，全部放在同一份报告里。原来的报告网址和 GitHub 地址继续使用。
 
 | 手机说什么 | 服务器安排什么 | 手机看到什么 |
 |---|---|---|
@@ -19,7 +19,7 @@
 
 四个例子可以播放、暂停、按步看或拖动；回测另有可播放与停止的 GIF。**全部使用合成教学数据，不实际创建 APK、调用数据 API、回测或部署；动画不是完整自动流水线的验收证明。** 应用内更新仍下载 APK，通常由 Android 系统确认安装。
 
-[四例任务书](v2/docs/example-tasks.md) · [第二版实施与验收](v2/docs/implementation-checklist.md) · [第一版报告归档](lazy-doggy-v1.html)
+[四例任务书](docs/example-tasks.md) · [扩展实施与验收](docs/implementation-checklist.md)
 
 ## 可以做什么
 
@@ -85,7 +85,7 @@
 python3 -m http.server 8080 --bind 127.0.0.1
 ```
 
-浏览器打开本机 `http://127.0.0.1:8080`。也可以直接打开 `index.html`；旧单文件 `lazy-doggy-offline.html` 与 `lazy-doggy-blueprint.zip` 保留为第一版归档；第二版随仓库一起阅读。报告不调用任何真实 Agent，也不收集访客输入。
+浏览器打开本机 `http://127.0.0.1:8080`。也可以直接打开 `index.html`；`lazy-doggy-offline.html` 是同步更新的单文件阅读版，`lazy-doggy-blueprint.zip` 包含完整报告、文档与演示资源。报告不调用任何真实 Agent，也不收集访客输入。
 
 ## 许可
 

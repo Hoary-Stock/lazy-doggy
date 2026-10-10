@@ -32,9 +32,9 @@
     $('scene-title').textContent=data.title; $('scene-text').textContent=data.text; $('scene-doc').href=data.doc;
     $('scene-steps').replaceChildren(...data.steps.map(row=>{const li=document.createElement('li');['span','b','small'].forEach((tag,i)=>{const e=document.createElement(tag);e.textContent=row[i];li.append(e)});return li}));
   }));
-  document.querySelectorAll('[data-node]').forEach(b => b.addEventListener('click',()=>{
-    const row=nodes[b.dataset.node]; pressed('[data-node]','node',b.dataset.node);
-    document.querySelectorAll('[data-node]').forEach(el=>el.classList.toggle('selected',el===b));
+  document.querySelectorAll('.topology [data-node]').forEach(b => b.addEventListener('click',()=>{
+    const row=nodes[b.dataset.node]; pressed('.topology [data-node]','node',b.dataset.node);
+    document.querySelectorAll('.topology [data-node]').forEach(el=>el.classList.toggle('selected',el===b));
     $('node-title').textContent=row[0];$('node-text').textContent=row[1];$('node-doc').href=row[2];
   }));
   function showImage(index=0) {

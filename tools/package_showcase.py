@@ -17,9 +17,10 @@ def inline_hash(text):
 
 def main():
     html = (ROOT / 'index.html').read_text()
-    css = '\n' + (ROOT / 'assets/showcase.css').read_text() + '\n'
+    css = '\n' + '\n'.join((ROOT / name).read_text() for name in
+                            ['assets/showcase.css', 'assets/examples.css']) + '\n'
     scripts = []
-    for name in ['gallery-data.js', 'showcase.js']:
+    for name in ['gallery-data.js', 'showcase.js', 'scenarios.js', 'examples.js']:
         source = (ROOT / 'assets' / name).read_text()
         if name == 'gallery-data.js':
             def image_data(match):
@@ -29,9 +30,18 @@ def main():
             source = re.sub(r'assets/screenshots/[A-Za-z0-9_-]+\.png', image_data, source)
         # Scene and topology controls assign Markdown links at runtime too.
         source = re.sub(r"(['\"])(docs/[A-Za-z0-9_-]+\.md)\1", lambda m: m.group(1) + 'https://github.com/Hoary-Stock/lazy-doggy/blob/main/' + m.group(2) + m.group(1), source)
+        if name == 'examples.js':
+            for filename in ['backtest-flow.svg', 'backtest-flow.gif']:
+                path = ROOT / 'assets/demo' / filename
+                mime = 'image/svg+xml' if path.suffix == '.svg' else 'image/gif'
+                data = 'data:' + mime + ';base64,' + base64.b64encode(path.read_bytes()).decode()
+                source = source.replace('assets/demo/' + filename, data)
         scripts.append('\n' + source + '\n')
         html = html.replace('<script src="assets/' + name + '"></script>', '<script>' + scripts[-1] + '</script>')
     html = html.replace('<link rel="stylesheet" href="assets/showcase.css">', '<style>' + css + '</style>')
+    html = html.replace('  <link rel="stylesheet" href="assets/examples.css">\n', '')
+    image = ROOT / 'assets/demo/backtest-flow.svg'
+    html = html.replace('src="assets/demo/backtest-flow.svg"', 'src="data:image/svg+xml;base64,' + base64.b64encode(image.read_bytes()).decode() + '"')
     html = html.replace("script-src 'self'; style-src 'self';", 'script-src ' + ' '.join("'" + inline_hash(s) + "'" for s in scripts) + "; style-src '" + inline_hash(css) + "';")
     # Markdown links remain useful online when this single file is shared alone.
     html = re.sub(r'href="((?:docs/)[^"]+\.md|AI_BUILD_PROMPT\.md)"', lambda m: 'href="https://github.com/Hoary-Stock/lazy-doggy/blob/main/' + m.group(1) + '"', html)
@@ -40,7 +50,7 @@ def main():
     # Keep the single-file appendix small and useful offline. The larger video
     # and interactive demo are separate, explicitly online resources.
     html = re.sub(r'<video id="flow-video".*?</video>', '<div class="note"><b>单文件阅读版</b><span>本页文字、图片与教学交互可以离线阅读。视频单独提供：<a href="https://hoary-stock.github.io/lazy-doggy/assets/demo/lazy-doggy-demo.mp4">联网打开教学视频</a>；<a href="https://hoary-stock.github.io/lazy-doggy/demos/index.html">联网打开可暂停流程演示</a>。完整 ZIP 包含视频和示例。</span></div>', html, flags=re.S)
-    html = re.sub(r'href="(demos/index\.html|examples/whiteboard/index\.html|assets/demo/[^\"]+\.(?:mp4|vtt))"', lambda m: 'href="https://hoary-stock.github.io/lazy-doggy/' + m.group(1) + '"', html)
+    html = re.sub(r'href="(demos/index\.html|examples/whiteboard/index\.html|assets/demo/[^\"]+\.(?:mp4|vtt|gif))"', lambda m: 'href="https://hoary-stock.github.io/lazy-doggy/' + m.group(1) + '"', html)
     HTML.write_text(html)
     paths = [p for p in ROOT.rglob('*') if p.is_file() and not p.is_symlink()
              and '.git' not in p.relative_to(ROOT).parts
@@ -48,7 +58,7 @@ def main():
              and (p.suffix in {'.md', '.html', '.css', '.js', '.json', '.png', '.py'}
                   or (p.suffix == '.txt' and p.parent == ROOT / 'licenses')
                   or (p.suffix == '.svg' and p.parent == ROOT / 'assets/demo')
-                  or (p.suffix in {'.mp4', '.vtt'} and p.parent == ROOT / 'assets/demo'))]
+                  or (p.suffix in {'.mp4', '.vtt', '.gif'} and p.parent == ROOT / 'assets/demo'))]
     paths += [ROOT / 'LICENSE', ROOT / '.gitignore', ROOT / '.nojekyll']
     assert all(p.exists() for p in paths)
     assert not any(p.suffix in {'.apk', '.exe', '.db', '.log'} for p in paths)
